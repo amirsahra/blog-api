@@ -9,7 +9,6 @@ return [
         'avatar' => 'admin.png',
         'phone' => '98 3030',
         'email' => 'amirhosein.sahra@gmail.com',
-        'email_verified_at' => \Illuminate\Support\Carbon::now(),
-        'password' => \Illuminate\Support\Facades\Hash::make('123456789'),
+        'password' => 123456,
     ],
 ];
