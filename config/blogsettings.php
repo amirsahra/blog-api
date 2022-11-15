@@ -11,4 +11,7 @@ return [
         'email' => 'amirhosein.sahra@gmail.com',
         'password' => 123456,
     ],
+    'pagination' => [
+        'user' => 10,
+    ],
 ];
