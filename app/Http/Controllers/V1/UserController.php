@@ -15,6 +15,11 @@ class UserController extends Controller
 {
     use ApiResponse;
 
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     public function index(): JsonResponse
     {
         $users = User::paginate(Config::get('blogsettings.pagination.users'));
@@ -49,7 +54,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return $this->apiResult(__('messages.destroy_method',['name'=>__('values.user')]),
+        return $this->apiResult(__('messages.destroy_method', ['name' => __('values.user')]),
         );
     }
 }

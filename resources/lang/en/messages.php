@@ -7,4 +7,5 @@ return [
     'update_method' => 'update :name successfully.',
     'destroy_method' => 'delete :name successfully.',
     'validate_failed' => 'The given data was invalid.',
+    'forbidden' => 'Forbidden – You don’t have permission to access',
 ];
