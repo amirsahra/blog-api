@@ -25,34 +25,25 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(UserRequest $userRequest,User $user)
+    public function store(UserRequest $userRequest, User $user): JsonResponse
     {
-        return $this->apiResult(__('messages.store_method',['name'=>__('values.user')]),
+        return $this->apiResult(__('messages.store_method', ['name' => __('values.user')]),
             new UserResource($user->newUser($userRequest))
         );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(User $user): JsonResponse
     {
-        //
+        return $this->apiResult(__('messages.show_method', ['name' => __('values.user')]),
+            new UserResource($user)
+        );
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(UserRequest $userRequest, User $user)//: JsonResponse
     {
-        //
+        return $this->apiResult(__('messages.update_method', ['name' => __('values.user')]),
+            $user->updateUser($userRequest, $user->id)
+        );
     }
 
     /**

@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Config;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -86,10 +87,11 @@ class User extends Authenticatable
 
     public function newUser(Request $request)
     {
-        $avatarPath = null;
+        $avatarName = null;
         if ($request->has('avatar')) {
-            $avatarPath = Carbon::now()->microsecond . '.' . $request->avatar->extension();
-            $request->avatar->storeAs('images/avatars/', $avatarPath, 'public');
+            $avatarPath = Config::get('blogsettings.path.avatar');
+            $avatarName = Carbon::now()->microsecond . '.' . $request->avatar->extension();
+            $request->avatar->move(public_path($avatarPath), $avatarName);
         }
 
         return $this->query()->create([
@@ -100,9 +102,30 @@ class User extends Authenticatable
             'type' => $request->get('type') ?? 'member',
             'phone' => $request->get('phone'),
             'email' => $request->get('email'),
-            'avatar' => $avatarPath,
+            'avatar' => $avatarName,
             'password' => Hash::make($request->get('password')),
         ]);
 
+    }
+
+    public function updateUser(Request $request, int $id)
+    {
+        $user = $this->query()->findOrFail($id);
+        $userRequest = $request->all();
+
+        if (\File::delete('images/' . $user->avatar))
+            return 'ok';
+        else
+            return 'no';
+
+        if ($request->has('avatar')) {
+            $avatarPath = Carbon::now()->microsecond . '.' . $request->avatar->extension();
+            Storage::delete($user->avatar);
+            $request->avatar->storeAs('images/avatars/', $avatarPath, 'public');
+            $userRequest['avatar'] = $avatarPath;
+        }
+
+        $user->update($userRequest);
+        return $this->query()->findOrFail($id);
     }
 }
