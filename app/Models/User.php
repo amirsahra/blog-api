@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
-use Config;
+use App\Traits\UploadImage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
-use Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
@@ -55,7 +53,7 @@ use Laravel\Sanctum\HasApiTokens;
  */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, UploadImage;
 
     /**
      * The attributes that are mass assignable.
@@ -87,25 +85,14 @@ class User extends Authenticatable
 
     public function newUser(Request $request)
     {
-        $avatarName = null;
-        if ($request->has('avatar')) {
-            $avatarPath = Config::get('blogsettings.path.avatar');
-            $avatarName = Carbon::now()->microsecond . '.' . $request->avatar->extension();
-            $request->avatar->move(public_path($avatarPath), $avatarName);
-        }
+        $avatarPath = null;
+        if ($request->has('avatar'))
+            $avatarPath = $this->uploadImage($request->avatar, 'avatar');
 
-        return $this->query()->create([
-            'first_name' => $request->get('first_name'),
-            'last_name' => $request->get('last_name'),
-            'gender' => $request->get('gender') ?? 'male',
-            'status' => $request->get('status') ?? 'active',
-            'type' => $request->get('type') ?? 'member',
-            'phone' => $request->get('phone'),
-            'email' => $request->get('email'),
-            'avatar' => $avatarName,
-            'password' => Hash::make($request->get('password')),
-        ]);
-
+        $userRequest = $request->all();
+        $userRequest['password'] = Hash::make($request['password']);
+        $userRequest['avatar'] = $avatarPath;
+        return $this->query()->create($userRequest);
     }
 
     public function updateUser(Request $request, int $id)
@@ -113,17 +100,8 @@ class User extends Authenticatable
         $user = $this->query()->findOrFail($id);
         $userRequest = $request->all();
 
-        if (\File::delete('images/' . $user->avatar))
-            return 'ok';
-        else
-            return 'no';
-
-        if ($request->has('avatar')) {
-            $avatarPath = Carbon::now()->microsecond . '.' . $request->avatar->extension();
-            Storage::delete($user->avatar);
-            $request->avatar->storeAs('images/avatars/', $avatarPath, 'public');
-            $userRequest['avatar'] = $avatarPath;
-        }
+        if ($request->has('avatar'))
+            $userRequest['avatar'] = $this->updateImage($request->avatar, 'avatar', $user->avatar);
 
         $user->update($userRequest);
         return $this->query()->findOrFail($id);
