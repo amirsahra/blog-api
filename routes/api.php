@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\V1\AuthController;
+use App\Http\Controllers\V1\Auth\LoginController;
+use App\Http\Controllers\V1\Auth\RegisterController;
 use App\Http\Controllers\V1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,8 +22,9 @@ Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
 });
 
 Route::group(['prefix'=>'v1'], function () {
-    Route::post('login',[AuthController::class,'login']);
-    Route::post('logout',[AuthController::class,'logout']);
-    Route::post('register',[AuthController::class,'register']);
+    Route::post('login',[LoginController::class,'login']);
+    Route::post('logout',[LoginController::class,'logout']);
+    Route::post('register',[RegisterController::class,'register']);
+
     Route::apiResource('user', UserController::class);
 });
