@@ -14,7 +14,13 @@ return [
             'success' => 'You are successfully logged in.',
             'failed' => 'Incorrect email or password.',
         ],
-        'register' => 'You are successfully register.',
-
+        'register' => 'You are successfully register. Email confirmation link has been sent to your email, please confirm your email.',
+        'email_verify' => [
+            'already' => 'Your email has already been verified.',
+            'Invalid' => 'Invalid/Expired url provided.',
+            'success' => 'Success verify email.',
+            'resend' => 'Verification link sent!',
+            'subject' => 'Verify Email Address'
+        ],
     ],
 ];

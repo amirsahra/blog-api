@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Traits\UploadImage;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Http\Request;
@@ -53,7 +55,7 @@ use Laravel\Passport\HasApiTokens;
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
  * @property-read int|null $clients_count
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, UploadImage;
 
@@ -94,7 +96,10 @@ class User extends Authenticatable
         $userRequest = $request->all();
         $userRequest['password'] = Hash::make($request['password']);
         $userRequest['avatar'] = $avatarPath;
-        return $this->query()->create($userRequest);
+        //return $this->query()->create($userRequest)->sendEmailVerificationNotification();
+        $user = $this->query()->create($userRequest);
+        event(new Registered($user));
+        return $user;
     }
 
     public function updateUser(Request $request, int $id)

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\V1\Auth\LoginController;
 use App\Http\Controllers\V1\Auth\RegisterController;
+use App\Http\Controllers\V1\Auth\VerifyEmailController;
 use App\Http\Controllers\V1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,10 +22,25 @@ Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix'=>'v1'], function () {
-    Route::post('login',[LoginController::class,'login']);
-    Route::post('logout',[LoginController::class,'logout']);
-    Route::post('register',[RegisterController::class,'register']);
+Route::group(['prefix' => 'v1'], function () {
+    Route::post('login', [LoginController::class, 'login']);
+    Route::post('logout', [LoginController::class, 'logout']);
+    Route::post('register', [RegisterController::class, 'register']);
 
     Route::apiResource('user', UserController::class);
+
+    Route::get('email/verify/{id}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
+    Route::get('email/resend', [VerifyEmailController::class, 'resend'])->name('verification.resend');
+
+    Route::get('testM', function () {
+        $data = array('name' => "Virat Gandhi");
+
+        Mail::send(['text' => 'mail'], $data, function ($message) {
+            $message->to('abc@gmail.com', 'Tutorials Point')->subject
+            ('Laravel Basic Testing Mail');
+            $message->from('xyz@gmail.com', 'Virat Gandhi');
+        });
+        return response()->json("Basic Email Sent. Check your inbox.");
+    });
+
 });
