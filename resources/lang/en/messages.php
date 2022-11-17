@@ -14,5 +14,7 @@ return [
             'success' => 'You are successfully logged in.',
             'failed' => 'Incorrect email or password.',
         ],
+        'register' => 'You are successfully register.',
+
     ],
 ];
