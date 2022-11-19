@@ -41,9 +41,9 @@ class Category extends Model
 
     protected $guarded = [];
 
-    public function children(): BelongsTo
+    public function children()
     {
-        return $this->belongsTo(Category::clone(),'parent_id','id')
+        return $this->hasMany(Category::class,'parent_id','id')
             ->with('children');
     }
 }

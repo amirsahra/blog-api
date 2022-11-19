@@ -20,7 +20,8 @@ class CategoryResource extends JsonResource
             'slug' => $this->slug,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'children' => CategoryResource::collection(
+            'parent_id'=>$this->parent_id,
+            'children' => CategoryChildrenResource::collection(
                 $this->whenLoaded('children'))
         ];
     }
