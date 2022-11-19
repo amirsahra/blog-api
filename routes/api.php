@@ -33,6 +33,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('email/resend', [VerifyEmailController::class, 'resend'])->name('verification.resend');
 
     Route::get('testM', function () {
+        /*
         $data = array('name' => "Virat Gandhi");
 
         Mail::send(['text' => 'mail'], $data, function ($message) {
@@ -41,6 +42,7 @@ Route::group(['prefix' => 'v1'], function () {
             $message->from('xyz@gmail.com', 'Virat Gandhi');
         });
         return response()->json("Basic Email Sent. Check your inbox.");
+        */
     });
 
 });
