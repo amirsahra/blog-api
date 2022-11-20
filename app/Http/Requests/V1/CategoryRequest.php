@@ -28,12 +28,20 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'required|min:3|max:225|unique:categories,title',
-            'slug' => 'required|min:3|max:225|unique:categories,title',
-            'is_active' => 'in:1,0',
-            'parent_id' => 'exists:categories,id',
-        ];
+        if (in_array($this->method(), ['PUT', 'PATCH'])) {
+            return [
+                'title' => 'min:3|max:225|unique:categories,title,' . $this->category,
+                'slug' => 'min:3|max:225|unique:categories,title,' . $this->category,
+                'is_active' => 'in:1,0',
+            ];
+        } else {
+            return [
+                'title' => 'required|min:3|max:225|unique:categories,title',
+                'slug' => 'required|min:3|max:225|unique:categories,title',
+                'is_active' => 'in:1,0',
+                'parent_id' => 'exists:categories,id',
+            ];
+        }
     }
 
     protected function failedValidation(Validator $validator)

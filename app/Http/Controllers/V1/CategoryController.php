@@ -42,16 +42,13 @@ class CategoryController extends Controller
         );
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $categoryRequest, $id)
     {
-        //
+        Category::where('id', '=', $id)
+            ->update($categoryRequest->only('title', 'slug', 'is_active'));
+        return $this->apiResult(__('messages.update_method', ['name' => __('values.category')]),
+            new CategoryResource(Category::find($id))
+        );
     }
 
     /**
