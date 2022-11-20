@@ -13,6 +13,11 @@ class CategoryController extends Controller
 {
     use ApiResponse;
 
+    public function __construct()
+    {
+        // $this->middleware('admin')->only('');
+    }
+
     public function index()
     {
         $categories = Category::where('parent_id', null)->with('children')->get();
@@ -24,20 +29,17 @@ class CategoryController extends Controller
     public function store(CategoryRequest $categoryRequest)
     {
         $category = Category::create($categoryRequest->only('title', 'slug', 'is_active', 'parent_id'));
-        return $this->apiResult(__('messages.store_method', ['name' => __('category')]),
+        return $this->apiResult(__('messages.store_method', ['name' => __('values.category')]),
             new CategoryResource($category)
         );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $category = Category::where('id', '=', $id)->with('children')->first();
+        return $this->apiResult(__('messages.show_method', ['name' => __('values.category')]),
+            new CategoryResource($category)
+        );
     }
 
     /**
