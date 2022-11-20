@@ -19,7 +19,7 @@ class PostController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->only('store');
-        $this->middleware('author')->only('update');
+        $this->middleware('author')->only(['update','destroy']);
     }
 
     public function index(): JsonResponse
@@ -46,22 +46,16 @@ class PostController extends Controller
         );
     }
 
-    public function update(PostRequest $postRequest, Post $post)//: JsonResponse
+    public function update(PostRequest $postRequest, Post $post): JsonResponse
     {
-        //return \response($postRequest->post->author_id);
         return $this->apiResult(__('messages.update_method', ['name' => __('values.post')]),
             $post->update($postRequest->only('title', 'slug', 'content', 'status', 'cat_id'))
         );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return $this->apiResult(__('messages.destroy_method', ['name' => __('values.post')]));
     }
 }
