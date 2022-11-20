@@ -2,9 +2,11 @@
 
 namespace App\Models\V1;
 
+use App\Http\Resources\V1\PostResource;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 /**
  * App\Models\V1\Post
@@ -45,5 +47,12 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function newPost(Request $request)
+    {
+        $postRequest = $request->all();
+        $postRequest['author_id'] = auth()->id();
+        return $this->query()->create($postRequest);
     }
 }

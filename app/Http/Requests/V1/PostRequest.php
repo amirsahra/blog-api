@@ -38,7 +38,7 @@ class PostRequest extends FormRequest
             return [
                 'title' => 'required|max:225',
                 'slug' => 'required|max:225|unique:posts,slug',
-                'content' => 'required',
+                'cat_id' => 'required|exists:categories,id',
                 'status' => 'in:publish,draft,ban',
             ];
         }

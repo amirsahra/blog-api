@@ -8,7 +8,6 @@ use App\Http\Resources\V1\UserResource;
 use App\Models\User;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
 class UserController extends Controller
