@@ -30,15 +30,15 @@ class PostRequest extends FormRequest
     {
         if (in_array($this->method(), ['PUT', 'PATCH'])) {
             return [
-                'title' => 'max:225',
-                'slug' => 'max:225|unique:posts,slug,' . $this->category,
+                'title' => 'min:3|max:225',
+                'slug' => 'min:3|max:225|unique:posts,slug,' . $this->post,
                 'cat_id' => 'exists:categories,id',
                 'status' => 'in:publish,draft,ban',
             ];
         } else {
             return [
-                'title' => 'required|max:225',
-                'slug' => 'required|max:225|unique:posts,slug',
+                'title' => 'required|min:3|max:225',
+                'slug' => 'required|min:3|max:225|unique:posts,slug',
                 'cat_id' => 'required|exists:categories,id',
                 'status' => 'in:publish,draft,ban',
             ];
