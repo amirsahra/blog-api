@@ -7,7 +7,8 @@ return [
     'update_method' => 'update :name successfully.',
     'destroy_method' => 'delete :name successfully.',
     'validate_failed' => 'The given data was invalid.',
-    'forbidden' => 'Forbidden – You don’t have permission to access',
+    'unauthorized' => 'Unauthorized - You don’t have permission to access this item.',
+    'forbidden' => 'Forbidden – You don’t have permission to access.',
     'auth' => [
         'logout' => 'You have been successfully logged out!',
         'login' => [

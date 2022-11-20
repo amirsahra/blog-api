@@ -9,7 +9,6 @@ use App\Http\Resources\V1\PostResource;
 use App\Models\V1\Post;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
 
@@ -20,6 +19,7 @@ class PostController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->only('store');
+        $this->middleware('author')->only('update');
     }
 
     public function index(): JsonResponse
@@ -46,16 +46,12 @@ class PostController extends Controller
         );
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
+    public function update(PostRequest $postRequest, Post $post)//: JsonResponse
     {
-        //
+        //return \response($postRequest->post->author_id);
+        return $this->apiResult(__('messages.update_method', ['name' => __('values.post')]),
+            $post->update($postRequest->only('title', 'slug', 'content', 'status', 'cat_id'))
+        );
     }
 
     /**
