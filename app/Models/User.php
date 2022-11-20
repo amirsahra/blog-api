@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\V1\Post;
 use App\Traits\UploadImage;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -112,5 +113,10 @@ class User extends Authenticatable implements MustVerifyEmail
 
         $user->update($userRequest);
         return $this->query()->findOrFail($id);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
     }
 }
