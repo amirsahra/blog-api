@@ -4,6 +4,7 @@ use App\Http\Controllers\V1\Auth\LoginController;
 use App\Http\Controllers\V1\Auth\RegisterController;
 use App\Http\Controllers\V1\Auth\VerifyEmailController;
 use App\Http\Controllers\V1\CategoryController;
+use App\Http\Controllers\V1\PostController;
 use App\Http\Controllers\V1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::apiResource('user', UserController::class);
     Route::apiResource('category', CategoryController::class);
+    Route::apiResource('post', PostController::class);
 
     Route::get('email/verify/{id}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
     Route::get('email/resend', [VerifyEmailController::class, 'resend'])->name('verification.resend');

@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function index(): JsonResponse
     {
-        $users = User::paginate(Config::get('blogsettings.pagination.users'));
+        $users = User::paginate(Config::get('blogsettings.pagination.user'));
         return $this->apiResult(__('messages.index_method', ['name' => __('values.users')]), [
             'users' => UserResource::collection($users),
             'links' => UserResource::collection($users)->response()->getData()->links,

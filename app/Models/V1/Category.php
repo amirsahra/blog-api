@@ -30,6 +30,9 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Category whereTitle($value)
  * @method static Builder|Category whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|Category[] $children
+ * @property-read int|null $children_count
+ * @method static \Database\Factories\V1\CategoryFactory factory(...$parameters)
  */
 class Category extends Model
 {
