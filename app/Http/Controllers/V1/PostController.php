@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\PostRequest;
+use App\Http\Resources\V1\PostCompleteInfo;
 use App\Http\Resources\V1\PostResource;
 use App\Models\V1\Post;
 use App\Traits\ApiResponse;
@@ -31,22 +32,18 @@ class PostController extends Controller
         ]);
     }
 
-    public function store(PostRequest $postRequest, Post $post)
+    public function store(PostRequest $postRequest, Post $post): JsonResponse
     {
         return $this->apiResult(__('messages.store_method', ['name' => __('values.user')]),
             new PostResource($post->newPost($postRequest))
         );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
+    public function show(Post $post): JsonResponse
     {
-        //
+        return $this->apiResult(__('messages.show_method', ['name' => __('values.post')]),
+            new PostCompleteInfo($post)
+        );
     }
 
     /**
