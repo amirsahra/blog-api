@@ -31,7 +31,7 @@ class CategoryRequest extends FormRequest
         if (in_array($this->method(), ['PUT', 'PATCH'])) {
             return [
                 'title' => 'min:3|max:225|unique:categories,title,' . $this->category,
-                'slug' => 'min:3|max:225|unique:categories,title,' . $this->category,
+                'slug' => 'min:3|max:225|unique:categories,slug,' . $this->category,
                 'is_active' => 'in:1,0',
             ];
         } else {
