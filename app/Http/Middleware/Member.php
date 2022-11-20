@@ -19,7 +19,7 @@ class Member
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->type = 'member')
+        if (auth('api')->check() && auth('api')->user()->type = 'member')
             return $next($request);
         return $this->apiResult(__('messages.forbidden'), null, false, 403);
     }

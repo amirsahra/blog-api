@@ -31,7 +31,8 @@ class PostRequest extends FormRequest
         if (in_array($this->method(), ['PUT', 'PATCH'])) {
             return [
                 'title' => 'max:225',
-                'slug' => 'max:225',
+                'slug' => 'max:225|unique:posts,slug,' . $this->category,
+                'cat_id' => 'exists:categories,id',
                 'status' => 'in:publish,draft,ban',
             ];
         } else {

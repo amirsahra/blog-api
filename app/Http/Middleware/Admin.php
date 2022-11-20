@@ -19,7 +19,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->type == 'admin')
+        if (auth('api')->check() && auth('api')->user()->type == 'admin')
             return $next($request);
         return $this->apiResult(__('messages.forbidden'), null, false, 403);
     }
