@@ -36,7 +36,7 @@ class UserRequest extends FormRequest
                 'type' => 'in:admin,member',
                 'status' => 'in:active,ban',
                 'phone' => 'numeric|digits:10',
-                'email' => 'email|unique:users,email,' . $this->id,
+                'email' => 'email|unique:users,email,' . $this->user,
                 'avatar' => 'mimes:jpeg,jpg,png,gif|max:20000',
                 'password' => 'min:6'
             ];
