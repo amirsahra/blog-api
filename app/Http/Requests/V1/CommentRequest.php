@@ -30,9 +30,9 @@ class CommentRequest extends FormRequest
     {
         if (in_array($this->method(), ['PUT', 'PATCH'])) {
             return [
-                'title' => 'min:3|max:225|unique:categories,title,' . $this->comment,
-                'slug' => 'min:3|max:225|unique:categories,slug,' . $this->comment,
-                'is_active' => 'in:1,0',
+                'title' => 'min:3|max:225',
+                'content' => 'min:3|max:225',
+                'status' => 'in:publish,ban',
             ];
         } else {
             return [

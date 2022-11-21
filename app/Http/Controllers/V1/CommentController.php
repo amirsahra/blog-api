@@ -21,7 +21,7 @@ class CommentController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->only('store');
-        $this->middleware('author')->only(['update','destroy']);
+        $this->middleware('comment.author')->only(['update', 'destroy']);
     }
 
     public function index(): JsonResponse
@@ -42,27 +42,21 @@ class CommentController extends Controller
         );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show($id): JsonResponse
     {
-        //
+        $comment = Comment::where('id', '=', $id)->with('children')->first();
+        return $this->apiResult(__('messages.show_method', ['name' => __('values.comment')]),
+            new CommentResource($comment)
+        );
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(CommentRequest $commentRequest, $id): JsonResponse
     {
-        //
+        Comment::where('id', '=', $id)
+            ->update($commentRequest->only('title', 'content', 'status'));
+        return $this->apiResult(__('messages.update_method', ['name' => __('values.comment')]),
+            new CommentResource(Comment::find($id))
+        );
     }
 
     /**

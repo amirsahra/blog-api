@@ -19,7 +19,7 @@ class PostController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api')->only('store');
-        $this->middleware('author')->only(['update','destroy']);
+        $this->middleware('post.author')->only(['update','destroy']);
     }
 
     public function index(): JsonResponse
