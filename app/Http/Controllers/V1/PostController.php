@@ -9,7 +9,6 @@ use App\Http\Resources\V1\PostResource;
 use App\Models\V1\Post;
 use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
 
 class PostController extends Controller
