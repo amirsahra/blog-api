@@ -10,6 +10,9 @@ use App\Traits\ApiResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Config;
 
+/**
+ * @OA\Info(title="User API Controller", version="1.0.0")
+ */
 class UserController extends Controller
 {
     use ApiResponse;
@@ -36,6 +39,10 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * @param User $user
+     * @return JsonResponse
+     */
     public function show(User $user): JsonResponse
     {
         return $this->apiResult(__('messages.show_method', ['name' => __('values.user')]),
