@@ -57,7 +57,7 @@ class Post extends Model
     public function newPost(Request $request)
     {
         $postRequest = $request->all();
-        $postRequest['author_id'] = auth()->id();
+        $postRequest['author_id'] = auth('api')->id();
         return $this->query()->create($postRequest);
     }
 }

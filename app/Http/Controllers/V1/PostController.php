@@ -34,7 +34,7 @@ class PostController extends Controller
 
     public function store(PostRequest $postRequest, Post $post): JsonResponse
     {
-        return $this->apiResult(__('messages.store_method', ['name' => __('values.user')]),
+        return $this->apiResult(__('messages.store_method', ['name' => __('values.post')]),
             new PostResource($post->newPost($postRequest))
         );
     }
