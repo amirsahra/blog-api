@@ -5,6 +5,7 @@ namespace App\Models\V1;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 /**
  * App\Models\V1\Comment
@@ -57,5 +58,12 @@ class Comment extends Model
     {
         return $this->hasMany(Comment::class, 'parent_id', 'id')
             ->with('children');
+    }
+
+    public function newComment(Request $request)
+    {
+        $commentRequest = $request->all();
+        $commentRequest['author_id'] = auth('api')->id();
+        return $this->query()->create($commentRequest);
     }
 }

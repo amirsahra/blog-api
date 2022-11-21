@@ -15,6 +15,7 @@ return [
     'pagination' => [
         'user' => 10,
         'post' => 10,
+        'comment' => 10,
     ],
 
     'path' => [
