@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\V1\Comment;
 use App\Models\V1\Post;
 use App\Traits\UploadImage;
 use Illuminate\Auth\Events\Registered;
@@ -118,5 +119,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class,'author_id');
     }
 }
