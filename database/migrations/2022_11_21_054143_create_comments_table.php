@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->string('title', 225);
             $table->text('content');
-            $table->enum('status', ['publish', 'ban']);
+            $table->enum('status', ['publish', 'ban'])->default('publish');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->foreign('parent_id')->references('id')->on('comments')
                 ->onDelete('cascade');
