@@ -7,7 +7,7 @@ use App\Traits\ApiResponse;
 use Closure;
 use Illuminate\Http\Request;
 
-class Author
+class PostAuthor
 {
     use ApiResponse;
     /**

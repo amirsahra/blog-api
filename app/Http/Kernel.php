@@ -3,7 +3,8 @@
 namespace App\Http;
 
 use App\Http\Middleware\Admin;
-use App\Http\Middleware\Author;
+use App\Http\Middleware\CommentAuthor;
+use App\Http\Middleware\PostAuthor;
 use App\Http\Middleware\Member;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -68,6 +69,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => Admin::class,
         'member' => Member::class,
-        'author' => Author::class,
+        'post.author' => PostAuthor::class,
+        'comment.author' => CommentAuthor::class,
     ];
 }
