@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\V1\Auth\ForgotPasswordController;
 use App\Http\Controllers\V1\Auth\LoginController;
 use App\Http\Controllers\V1\Auth\RegisterController;
 use App\Http\Controllers\V1\Auth\VerifyEmailController;
@@ -29,6 +30,10 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('login', [LoginController::class, 'login']);
     Route::post('logout', [LoginController::class, 'logout']);
     Route::post('register', [RegisterController::class, 'register']);
+    Route::post('forgot-password', [ForgotPasswordController::class, 'forgotPassword'])
+        ->name('password.request');
+    Route::post('password/reset', [ForgotPasswordController::class, 'resetPassword'])
+        ->name('password.reset');
 
     Route::apiResource('user', UserController::class);
     Route::apiResource('category', CategoryController::class);

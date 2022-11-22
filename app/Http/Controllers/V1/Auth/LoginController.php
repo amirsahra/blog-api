@@ -24,7 +24,7 @@ class LoginController extends Controller
             $token = auth()->user()->createToken('logon')->accessToken;
             return $this->apiResult(__('messages.auth.login.success'), ['token' => $token]);
         } else
-            return $this->apiResult(__('messages.auth.failed'), null, false, 401);
+            return $this->apiResult(__('messages.auth.login.failed'), null, false, 401);
     }
 
     public function logout(): JsonResponse
