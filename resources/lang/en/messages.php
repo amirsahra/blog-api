@@ -10,6 +10,7 @@ return [
     'unauthorized' => 'Unauthorized - You don’t have permission to access this item.',
     'forbidden' => 'Forbidden – You don’t have permission to access.',
     'auth' => [
+        'unauthenticated' => 'Unauthenticated - You need authentication. The token you sent must be incorrect or expired',
         'logout' => 'You have been successfully logged out!',
         'forgot' => [
             'send_email' => 'Password recovery email has been sent to you, Please check your email inbox.',
