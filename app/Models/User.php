@@ -100,7 +100,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $userRequest['avatar'] = $avatarPath;
         //return $this->query()->create($userRequest)->sendEmailVerificationNotification();
         $user = $this->query()->create($userRequest);
-        //event(new Registered($user));
+        event(new Registered($user));
         return $user;
     }
 

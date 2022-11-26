@@ -43,8 +43,16 @@ class Handler extends ExceptionHandler
         });
     }
 
+    public function render($request, Throwable $e)
+    {
+        return $this->apiException($request, $e);
+    }
+
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         return $this->apiResult(__('messages.auth.unauthenticated'), null, false, 401);
     }
+
+
 }
+
