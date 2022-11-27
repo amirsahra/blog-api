@@ -13,7 +13,7 @@ Fake data has been used for testing and development.
 ### Features :
 ```bash
 - Auth ( Login , Register , verify email , Reset password ) just for admin
-- User ( Create , Read , Update , Destroy ) just for admin
+- User ( Create , Read , Update , Destroy , Search ) just for admin
 - Post ( Create , Read , Update , Destroy )
 - Comment ( Create , Read , Update , Destroy )
 - Category ( Create , Read , Update , Destroy )
@@ -22,7 +22,7 @@ Fake data has been used for testing and development.
 ### Access level :
 ```bash
 - Auth [ verify email , Reset password ] need to be authenticated
-- User ( Create , Read , Update , Destroy ) need to be authorization( admin )
+- User ( Create , Read , Update , Destroy , Search) need to be authorization( admin )
 - Post ( Create , Update , Destroy ) need to be authorization( author )
 - Comment ( Create , Update , Destroy ) need to be authorization( author )
 - Category ( Create , Read , Update , Destroy ) need to be authorization( admin )
@@ -77,6 +77,7 @@ Now the project has been implemented and the request can be sent with the define
     3 ) Read        -> /api/v1/user/{id} 
     4 ) Update      -> /api/v1/user/{id} 
     5 ) Destroy     -> /api/v1/user/{id} 
+    5 ) Search     -> /api/v1/users/search 
     
 2. Auth
     1 ) Register             -> /api/v1/register 
