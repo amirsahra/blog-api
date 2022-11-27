@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\V1\Comment;
 use App\Models\V1\Post;
+use App\Traits\Searchable;
 use App\Traits\UploadImage;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -56,6 +57,10 @@ use Laravel\Passport\HasApiTokens;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
  * @property-read int|null $clients_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|Comment[] $comments
+ * @property-read int|null $comments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|Post[] $posts
+ * @property-read int|null $posts_count
  */
 class User extends Authenticatable implements MustVerifyEmail
 {

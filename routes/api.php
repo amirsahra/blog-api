@@ -34,6 +34,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('password/reset', [ForgotPasswordController::class, 'resetPassword'])->name('password.reset');
 
     Route::apiResource('user', UserController::class);
+    Route::post('users/search',[UserController::class,'search']);
     Route::apiResource('category', CategoryController::class);
     Route::apiResource('post', PostController::class);
     Route::apiResource('comment', CommentController::class);
@@ -42,6 +43,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('email/resend', [VerifyEmailController::class, 'resend'])->name('verification.resend');
 
     Route::get('testM', function () {
+       // return \App\Models\User::query()->whereLike('first_name','H')->get();
         /*
         $data = array('name' => "Virat Gandhi");
 

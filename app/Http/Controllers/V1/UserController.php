@@ -7,7 +7,9 @@ use App\Http\Requests\V1\UserRequest;
 use App\Http\Resources\V1\UserResource;
 use App\Models\User;
 use App\Traits\ApiResponse;
+use App\Traits\Searchable;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
 /**
@@ -15,7 +17,7 @@ use Illuminate\Support\Facades\Config;
  */
 class UserController extends Controller
 {
-    use ApiResponse;
+    use ApiResponse,Searchable;
 
     public function __construct()
     {
@@ -62,5 +64,13 @@ class UserController extends Controller
         $user->delete();
         return $this->apiResult(__('messages.destroy_method', ['name' => __('values.user')]),
         );
+    }
+
+    public function search(Request $request)
+    {
+        $model = new User();
+        $result = $this->multiSearch($model,$request->all());
+        return $this->apiResult(__('messages.search_method'),
+            UserResource::collection($result));
     }
 }
