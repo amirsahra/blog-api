@@ -7,11 +7,12 @@ use App\Http\Requests\V1\CategoryRequest;
 use App\Http\Resources\V1\CategoryResource;
 use App\Models\V1\Category;
 use App\Traits\ApiResponse;
+use App\Traits\Searchable;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    use ApiResponse;
+    use ApiResponse,Searchable;
 
     public function __construct()
     {
@@ -56,4 +57,15 @@ class CategoryController extends Controller
         $category->delete();
         return $this->apiResult(__('messages.destroy_method', ['name' => __('values.category')]));
     }
+
+    public function search(Request $request)
+    {
+        $model =new Category();
+        $result = $this->multiSearch($model,$request->only('title','slug'),
+            $request->only('is_active','parent_id'));
+        return $this->apiResult(__('messages.search_method'),
+            CategoryResource::collection($result));
+
+    }
 }
+
