@@ -36,6 +36,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::apiResource('user', UserController::class);
     Route::post('users/search',[UserController::class,'search']);
     Route::apiResource('category', CategoryController::class);
+    Route::post('categories/search',[CategoryController::class,'search']);
     Route::apiResource('post', PostController::class);
     Route::apiResource('comment', CommentController::class);
 

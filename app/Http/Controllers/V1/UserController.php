@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Config;
  */
 class UserController extends Controller
 {
-    use ApiResponse,Searchable;
+    use ApiResponse, Searchable;
 
     public function __construct()
     {
@@ -69,7 +69,8 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $model = new User();
-        $result = $this->multiSearch($model,$request->all());
+        $result = $this->multiSearch($model, $request->only('first_name','last_name','phone','email'),
+            $request->only('gender','status','type'));
         return $this->apiResult(__('messages.search_method'),
             UserResource::collection($result));
     }
