@@ -12,16 +12,16 @@ Fake data has been used for testing and development.
 
 ### Features :
 ```bash
-- Auth ( Login , Register , verify email , Reset password ) just for admin
+- Auth ( Login , Register , verify email , Reset password )
 - User ( Create , Read , Update , Destroy , Search ) just for admin
-- Post ( Create , Read , Update , Destroy )
-- Comment ( Create , Read , Update , Destroy )
-- Category ( Create , Read , Update , Destroy )
+- Post ( Create , Read , Update , Destroy , Search)
+- Comment ( Create , Read , Update , Destroy , Search)
+- Category ( Create , Read , Update , Destroy , Search)
 ```
 
 ### Access level :
 ```bash
-- Auth [ verify email , Reset password ] need to be authenticated
+- Auth ( verify email , Reset password ) need to be authenticated
 - User ( Create , Read , Update , Destroy , Search) need to be authorization( admin )
 - Post ( Create , Update , Destroy ) need to be authorization( author )
 - Comment ( Create , Update , Destroy ) need to be authorization( author )
