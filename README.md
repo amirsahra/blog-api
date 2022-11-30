@@ -1,5 +1,9 @@
 ![Employee data](https://codigoonclick.com/wp-content/uploads/2021/07/api-rest-ful-laravel.png "Image")
 
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
 # Laravel Blog Rest API
 
 In this project, a blog has been implemented as a restful api.
@@ -116,6 +120,6 @@ Now the project has been implemented and the request can be sent with the define
 coming soon ....
 
 ## license
- MIT © amirsahra
+[MIT](https://choosealicense.com/licenses/mit/)
 
 
