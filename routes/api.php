@@ -39,6 +39,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('categories/search',[CategoryController::class,'search']);
     Route::apiResource('post', PostController::class);
     Route::apiResource('comment', CommentController::class);
+    Route::post('comments/search',[CommentController::class,'search']);
 
     Route::get('email/verify/{id}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
     Route::get('email/resend', [VerifyEmailController::class, 'resend'])->name('verification.resend');

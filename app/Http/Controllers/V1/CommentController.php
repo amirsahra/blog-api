@@ -4,19 +4,17 @@ namespace App\Http\Controllers\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\CommentRequest;
-use App\Http\Requests\V1\PostRequest;
 use App\Http\Resources\V1\CommentResource;
-use App\Http\Resources\V1\PostResource;
 use App\Models\V1\Comment;
-use App\Models\V1\Post;
 use App\Traits\ApiResponse;
+use App\Traits\Searchable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
 class CommentController extends Controller
 {
-    use ApiResponse;
+    use ApiResponse,Searchable;
 
     public function __construct()
     {
@@ -65,4 +63,15 @@ class CommentController extends Controller
         return $this->apiResult(__('messages.destroy_method', ['name' => __('values.comment')]));
 
     }
+
+    public function search(Request $request)
+    {
+        $model = new Comment();
+        $result = $this->multiSearch($model,$request->only('title'),
+            $request->only('status','parent_id','post_id','author_id'));
+        return $this->apiResult(__('messages.search_method'),
+            CommentResource::collection($result)
+        );
+    }
 }
+
