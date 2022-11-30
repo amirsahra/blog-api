@@ -1,4 +1,4 @@
-![](/home/zbook/Pictures/laravel-api.png)
+![Employee data](https://codigoonclick.com/wp-content/uploads/2021/07/api-rest-ful-laravel.png "Image")
 
 # Laravel Blog Rest API
 
