@@ -38,6 +38,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::apiResource('category', CategoryController::class);
     Route::post('categories/search',[CategoryController::class,'search']);
     Route::apiResource('post', PostController::class);
+    Route::post('posts/search',[PostController::class,'search']);
     Route::apiResource('comment', CommentController::class);
     Route::post('comments/search',[CommentController::class,'search']);
 

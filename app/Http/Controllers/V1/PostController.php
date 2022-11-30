@@ -8,12 +8,14 @@ use App\Http\Resources\V1\PostCompleteInfo;
 use App\Http\Resources\V1\PostResource;
 use App\Models\V1\Post;
 use App\Traits\ApiResponse;
+use App\Traits\Searchable;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
 class PostController extends Controller
 {
-    use ApiResponse;
+    use ApiResponse,Searchable;
 
     public function __construct()
     {
@@ -57,4 +59,16 @@ class PostController extends Controller
         $post->delete();
         return $this->apiResult(__('messages.destroy_method', ['name' => __('values.post')]));
     }
+
+    public function search(Request $request)
+    {
+        $model = new Post();
+        $result = $this->multiSearch($model, $request->only('title','slug'),
+            $request->only('author_id','status','cat_id'));
+        return $this->apiResult(__('messages.search_method'),
+            PostResource::collection($result));
+    }
+
 }
+
+
