@@ -22,10 +22,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
-    return $request->user();
-});
-
 Route::group(['prefix' => 'v1'], function () {
     Route::post('login', [LoginController::class, 'login']);
     Route::post('logout', [LoginController::class, 'logout']);
@@ -34,29 +30,15 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('password/reset', [ForgotPasswordController::class, 'resetPassword'])->name('password.reset');
 
     Route::apiResource('user', UserController::class);
-    Route::post('users/search',[UserController::class,'search']);
+    Route::post('users/search', [UserController::class, 'search']);
     Route::apiResource('category', CategoryController::class);
-    Route::post('categories/search',[CategoryController::class,'search']);
+    Route::post('categories/search', [CategoryController::class, 'search']);
     Route::apiResource('post', PostController::class);
-    Route::post('posts/search',[PostController::class,'search']);
+    Route::post('posts/search', [PostController::class, 'search']);
     Route::apiResource('comment', CommentController::class);
-    Route::post('comments/search',[CommentController::class,'search']);
+    Route::post('comments/search', [CommentController::class, 'search']);
 
     Route::get('email/verify/{id}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
     Route::get('email/resend', [VerifyEmailController::class, 'resend'])->name('verification.resend');
-
-    Route::get('testM', function () {
-       // return \App\Models\User::query()->whereLike('first_name','H')->get();
-        /*
-        $data = array('name' => "Virat Gandhi");
-
-        Mail::send(['text' => 'mail'], $data, function ($message) {
-            $message->to('abc@gmail.com', 'Tutorials Point')->subject
-            ('Laravel Basic Testing Mail');
-            $message->from('xyz@gmail.com', 'Virat Gandhi');
-        });
-        return response()->json("Basic Email Sent. Check your inbox.");
-        */
-    });
 
 });
